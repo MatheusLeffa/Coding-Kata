@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="FizzBuzz/FizzBuzz.csproj" />
+  <Project Path="String Calculator/String Calculator.csproj" />
+  <Project Path="Tests/Tests.csproj">
+    <BuildDependency Project="String Calculator/String Calculator.csproj" />
+  </Project>
+</Solution>
