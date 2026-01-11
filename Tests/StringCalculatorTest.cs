@@ -45,4 +45,13 @@ public class StringCalculatorTest
         int result = StringCalculator.Add(numbers);
         Assert.Equal(expected, result);
     }
+
+    [Theory]
+    [InlineData(2, "//[;;]\n1;;1")]
+    [InlineData(2, "//[,,,]\n1,,,1")]
+    public void Add_With_Custom_Separator_Two(int expected, string numbers)
+    {
+        int result = StringCalculator.Add(numbers);
+        Assert.Equal(expected, result);
+    }
 }

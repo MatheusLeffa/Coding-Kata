@@ -27,7 +27,10 @@ public class StringCalculator
         if (numbers.StartsWith("//"))
         {
             int indexOfLineBreak = numbers.IndexOf('\n');
-            separators.AddRange(numbers.Substring(2, indexOfLineBreak - 2).ToCharArray());
+            int initialIndex = numbers.IndexOf('[') + 1;
+            int lenght = (numbers.IndexOf(']') - initialIndex) - 1;
+
+            separators.AddRange(numbers.Substring(initialIndex, lenght).ToCharArray());
             numbers = numbers.Substring(indexOfLineBreak + 1);
         }
 
