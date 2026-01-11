@@ -50,7 +50,7 @@ public class StringCalculator
         {
             if (numbers[i] == '[')
             {
-                for (int n = i; n < numbers.Length; n++)
+                for (int n = i; n < stopIndex; n++)
                 {
                     if (numbers[n] == ']')
                     {
