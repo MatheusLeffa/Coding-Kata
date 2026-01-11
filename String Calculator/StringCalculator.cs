@@ -23,20 +23,44 @@ public class StringCalculator
     private static List<int> ToListOfIntegers(string numbers)
     {
         List<char> separators = [',', '\n'];
+        int indexOfLineBreak = numbers.IndexOf('\n');
 
         if (numbers.StartsWith("//"))
         {
-            int indexOfLineBreak = numbers.IndexOf('\n');
-            int initialIndex = numbers.IndexOf('[') + 1;
-            int lenght = (numbers.IndexOf(']') - initialIndex) - 1;
-
-            separators.AddRange(numbers.Substring(initialIndex, lenght).ToCharArray());
+            SetSeparators(separators, numbers, indexOfLineBreak);
             numbers = numbers.Substring(indexOfLineBreak + 1);
         }
 
         return [.. numbers
             .Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
             .Select(int.Parse)];
+    }
+
+    private static void SetSeparators(List<char> separators, string numbers, int stopIndex)
+    {
+        separators.Clear();
+
+        if (stopIndex == 3)
+        {
+            separators.Add(numbers.ElementAt(stopIndex - 1));
+            return;
+        }
+
+        for (int i = 0; i < stopIndex; i++)
+        {
+            if (numbers[i] == '[')
+            {
+                for (int n = i; n < numbers.Length; n++)
+                {
+                    if (numbers[n] == ']')
+                    {
+                        i = n;
+                        break;
+                    }
+                    separators.Add(numbers[n]);
+                }
+            }
+        }
     }
     #endregion
 }

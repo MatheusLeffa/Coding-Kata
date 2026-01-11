@@ -14,7 +14,7 @@ public class StringCalculatorTest
     [InlineData(4, "1,1\n2")]
     [InlineData(2, "1,1,\n")]
 
-    public void Add_Without_Custom_Separator(int expected, string numbers)
+    public void Add_With_Default_Separator(int expected, string numbers)
     {
         int result = StringCalculator.Add(numbers);
         Assert.Equal(expected, result);
@@ -22,6 +22,7 @@ public class StringCalculatorTest
 
     [Theory]
     [InlineData(2, "//;\n1;1")]
+    [InlineData(2, "//[\n1[1")]
     public void Add_With_Custom_Separator(int expected, string numbers)
     {
         int result = StringCalculator.Add(numbers);
@@ -50,6 +51,15 @@ public class StringCalculatorTest
     [InlineData(2, "//[;;]\n1;;1")]
     [InlineData(2, "//[,,,]\n1,,,1")]
     public void Add_With_Custom_Separator_Two(int expected, string numbers)
+    {
+        int result = StringCalculator.Add(numbers);
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(3, "//[;][.]\n1;1.1")]
+    [InlineData(3, "//[,,,][-]\n1,,,1-1")]
+    public void Add_With_Custom_Separator_three(int expected, string numbers)
     {
         int result = StringCalculator.Add(numbers);
         Assert.Equal(expected, result);
