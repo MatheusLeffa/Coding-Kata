@@ -22,7 +22,7 @@ public class StringCalculator
     #region Private Methods
     private static List<int> ToListOfIntegers(string numbers)
     {
-        List<char> separators = [',', '\n'];
+        List<string> separators = [",", "\n"];
         int indexOfLineBreak = numbers.IndexOf('\n');
 
         if (numbers.StartsWith("//"))
@@ -36,29 +36,31 @@ public class StringCalculator
             .Select(int.Parse)];
     }
 
-    private static void SetSeparators(List<char> separators, string numbers, int stopIndex)
+    private static void SetSeparators(List<string> separators, string numbers, int stopIndex)
     {
         separators.Clear();
 
         if (stopIndex == 3)
         {
-            separators.Add(numbers.ElementAt(stopIndex - 1));
+            separators.Add(numbers.ElementAt(stopIndex - 1).ToString());
             return;
         }
+
+        int startIndex = 0;
+        int lenght;
 
         for (int i = 0; i < stopIndex; i++)
         {
             if (numbers[i] == '[')
             {
-                for (int n = i; n < stopIndex; n++)
-                {
-                    if (numbers[n] == ']')
-                    {
-                        i = n;
-                        break;
-                    }
-                    separators.Add(numbers[n]);
-                }
+                startIndex = i + 1;
+                continue;
+            }
+
+            if (numbers[i] == ']')
+            {
+                lenght = i - startIndex;
+                separators.Add(numbers.Substring(startIndex, lenght));
             }
         }
     }
