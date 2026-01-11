@@ -36,4 +36,13 @@ public class StringCalculatorTest
         var exception = Assert.Throws<ArgumentException>(() => StringCalculator.Add(numbers));
         Assert.Equal(expectedMessage, exception.Message);
     }
+
+    [Theory]
+    [InlineData(2, "1000,2")]
+    [InlineData(2, "1000,2,31000")]
+    public void Add_Without_1000_Or_Bigger(int expected, string numbers)
+    {
+        int result = StringCalculator.Add(numbers);
+        Assert.Equal(expected, result);
+    }
 }

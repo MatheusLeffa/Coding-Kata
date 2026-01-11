@@ -4,18 +4,11 @@ public class StringCalculator
 {
     public static int Add(string numbers)
     {
-        List<int> listOfNumbers = ToListOfIntegers(numbers);
-        List<int> negativeNumbers = [];
-
+        List<int> listOfNumbers = [.. ToListOfIntegers(numbers).Where(numbers => numbers < 1000)];
+        List<int> negativeNumbers = [.. listOfNumbers.Where(number => number < 0)];
 
         if (listOfNumbers.Count == 0)
             return 0;
-
-        foreach (int number in listOfNumbers)
-        {
-            if (number < 0)
-                negativeNumbers.Add(number);
-        }
 
         if (negativeNumbers.Count > 0)
         {
@@ -38,10 +31,9 @@ public class StringCalculator
             numbers = numbers.Substring(indexOfLineBreak + 1);
         }
 
-        return numbers
+        return [.. numbers
             .Split(separators.ToArray(), StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-            .Select(int.Parse)
-            .ToList();
+            .Select(int.Parse)];
     }
     #endregion
 }
