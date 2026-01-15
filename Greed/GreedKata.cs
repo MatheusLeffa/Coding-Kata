@@ -6,6 +6,7 @@ public static class GreedKata
 
     public static (int, List<int>) Run()
     {
+        int score = 0;
         List<int> numbers = [];
 
         for (int i = 0; i < DICE_ROLLS; i++)
@@ -13,64 +14,34 @@ public static class GreedKata
             numbers.Add(Dice.Roll());
         }
 
-        int one = numbers.Count(x => x == 1);
-        int two = numbers.Count(x => x == 2);
-        int three = numbers.Count(x => x == 3);
-        int four = numbers.Count(x => x == 4);
-        int five = numbers.Count(x => x == 5);
-        int six = numbers.Count(x => x == 6);
+        IEnumerable<KeyValuePair<int, int>> counts = numbers.AggregateBy(
+            keySelector: x => x,
+            seed: 0,
+            func: (count, _) => count + 1
+            );
 
-        int result = 0;
-
-        switch (one)
+        foreach (var item in counts)
         {
-            case 1:
-                result = 100;
-                break;
-            case 3:
-                result = 1000;
-                break;
+            int number = item.Key;
+            int count = item.Value;
+
+            if (count >= 3)
+            {
+                if (number == 1)
+                    score += 1000;
+                else
+                    score += number * 100;
+
+                count -= 3;
+            }
+
+            if (number == 1)
+                score += count * 100;
+            else if (number == 5)
+                score += count * 50;
         }
 
-        switch (two)
-        {
-            case 3:
-                result = 200;
-                break;
-        }
-
-        switch (three)
-        {
-            case 3:
-                result = 300;
-                break;
-        }
-
-        switch (four)
-        {
-            case 3:
-                result = 400;
-                break;
-        }
-
-        switch (five)
-        {
-            case 1:
-                result = 50;
-                break;
-            case 3:
-                result = 500;
-                break;
-        }
-
-        switch (six)
-        {
-            case 3:
-                result = 600;
-                break;
-        }
-
-        return (result, numbers);
+        return (score, numbers);
     }
 }
 
