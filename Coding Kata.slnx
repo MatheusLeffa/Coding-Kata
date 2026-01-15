@@ -1,8 +1,8 @@
 <Solution>
-  <Project Path="../../../../../../Repos/Coding-Kata/FizzBuzz/FizzBuzz.csproj" />
-  <Project Path="../../../../../../Repos/Coding-Kata/Greed/Greed.csproj" Id="208b504b-6787-4505-9713-bdca2de83655" />
-  <Project Path="../../../../../../Repos/Coding-Kata/String Calculator/String Calculator.csproj" />
-  <Project Path="../../../../../../Repos/Coding-Kata/Tests/Tests.csproj">
-    <BuildDependency Project="../../../../../../Repos/Coding-Kata/String Calculator/String Calculator.csproj" />
+  <Project Path="FizzBuzz/FizzBuzz.csproj" />
+  <Project Path="String Calculator/String Calculator.csproj" />
+  <Project Path="Greed/Greed.csproj" />
+  <Project Path="Tests/Tests.csproj">
+    <BuildDependency Project="String Calculator/String Calculator.csproj" />
   </Project>
 </Solution>
