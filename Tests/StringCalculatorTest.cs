@@ -30,6 +30,24 @@ public class StringCalculatorTest
     }
 
     [Theory]
+    [InlineData(2, "//[;;]\n1;;1")]
+    [InlineData(2, "//[,,,]\n1,,,1")]
+    public void Add_With_Custom_Separator_Two(int expected, string numbers)
+    {
+        int result = StringCalculator.Add(numbers);
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(3, "//[;][.]\n1;1.1")]
+    [InlineData(3, "//[,,,][-]\n1,,,1-1")]
+    public void Add_With_Custom_Separator_three(int expected, string numbers)
+    {
+        int result = StringCalculator.Add(numbers);
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
     [InlineData("Negatives not allowed: -1", "-1")]
     [InlineData("Negatives not allowed: -1,-2", "1,-1,-2")]
     public void Add_With_Negative_Numbers(string expectedMessage, string numbers)
@@ -47,21 +65,4 @@ public class StringCalculatorTest
         Assert.Equal(expected, result);
     }
 
-    [Theory]
-    [InlineData(2, "//[;;]\n1;;1")]
-    [InlineData(2, "//[,,,]\n1,,,1")]
-    public void Add_With_Custom_Separator_Two(int expected, string numbers)
-    {
-        int result = StringCalculator.Add(numbers);
-        Assert.Equal(expected, result);
-    }
-
-    [Theory]
-    [InlineData(3, "//[;][.]\n1;1.1")]
-    [InlineData(3, "//[,,,][-]\n1,,,1-1")]
-    public void Add_With_Custom_Separator_three(int expected, string numbers)
-    {
-        int result = StringCalculator.Add(numbers);
-        Assert.Equal(expected, result);
-    }
 }
