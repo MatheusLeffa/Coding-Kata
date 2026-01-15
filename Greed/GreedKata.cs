@@ -1,10 +1,10 @@
 ﻿namespace Greed;
 
-public class Greed
+public static class GreedKata
 {
-    private readonly int DICE_ROLLS = 5;
+    private const int DICE_ROLLS = 5;
 
-    public int Run()
+    public static (int, List<int>) Run()
     {
         List<int> numbers = [];
 
@@ -70,7 +70,7 @@ public class Greed
                 break;
         }
 
-        return result;
+        return (result, numbers);
     }
 }
 
